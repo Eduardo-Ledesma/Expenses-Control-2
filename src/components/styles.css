@@ -1,0 +1,7 @@
+.user-button:hover p {
+    color: white;
+  }
+  
+.user-button:hover img {
+    border-color: white;
+}
