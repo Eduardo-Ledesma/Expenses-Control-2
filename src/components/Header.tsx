@@ -8,6 +8,7 @@ const Header: React.FC = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [size, setSize] = useState(false)
     const setShowForm = useExpensesStore(state => state.setShowForm)
+    const handleResetExpenses = useExpensesStore(state => state.handleResetExpenses)
 
     useEffect(() => {
         const textEl = document.getElementById('texto');
@@ -38,7 +39,6 @@ const Header: React.FC = () => {
         setSize(true);
         const interval = setInterval(textLoad, 15000);
     
-        // Cleanup
         return () => {
             timeouts.forEach(clearTimeout);
             clearInterval(interval);
@@ -52,7 +52,6 @@ const Header: React.FC = () => {
     
         window.addEventListener('resize', handleResize);
     
-        // Limpieza del evento al desmontar el componente
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -73,7 +72,7 @@ const Header: React.FC = () => {
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                console.log('borrar')
+                handleResetExpenses()
             }
         })
     }
@@ -98,7 +97,7 @@ const Header: React.FC = () => {
                 </div>
             )}
             
-            <nav className='bg-green-900 p-6 flex justify-center gap-12 overflow-hidden border-y border-green-500'>
+            <nav className='bg-green-900 py-6 px-2 sm:p-6 flex justify-center gap-4 sm:gap-12 overflow-hidden border-y border-green-500'>
                 <button type='button' 
                     className="animate__animated animate__fadeInLeftBig hover:cursor-pointer
                 text-gray-200 hover:text-green-500 font-bold text-md sm:text-xl bg-gray-900 border-2 border-gray-400 p-3 rounded-md transition-colors hover:border-green-500"
